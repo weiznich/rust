@@ -1404,7 +1404,7 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
                     Res::Def(DefKind::Macro(MacroKind::Derive), _) => {
                         format!("a derive macro: `#[derive({})]`", ident)
                     }
-                    Res::ToolMod => {
+                    Res::ToolMod { .. } => {
                         // Don't confuse the user with tool modules.
                         continue;
                     }
@@ -1505,7 +1505,7 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
         if b.span.is_dummy() || !self.tcx.sess.source_map().is_span_accessible(b.span) {
             // These already contain the "built-in" prefix or look bad with it.
             let add_built_in =
-                !matches!(b.res(), Res::NonMacroAttr(..) | Res::PrimTy(..) | Res::ToolMod);
+                !matches!(b.res(), Res::NonMacroAttr(..) | Res::PrimTy(..) | Res::ToolMod { .. });
             let (built_in, from) = if from_prelude {
                 ("", " from prelude")
             } else if b.is_extern_crate()

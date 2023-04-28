@@ -956,7 +956,9 @@ impl<'a, 'b, 'tcx> BuildReducedGraphVisitor<'a, 'b, 'tcx> {
                 _,
             )
             | Res::PrimTy(..)
-            | Res::ToolMod => self.r.define(parent, ident, TypeNS, (res, vis, span, expansion)),
+            | Res::ToolMod { .. } => {
+                self.r.define(parent, ident, TypeNS, (res, vis, span, expansion))
+            }
             Res::Def(
                 DefKind::Fn
                 | DefKind::AssocFn

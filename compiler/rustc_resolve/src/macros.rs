@@ -21,7 +21,9 @@ use rustc_hir::def_id::{CrateNum, LocalDefId};
 use rustc_middle::middle::stability;
 use rustc_middle::ty::RegisteredTools;
 use rustc_middle::ty::TyCtxt;
-use rustc_session::lint::builtin::{LEGACY_DERIVE_HELPERS, SOFT_UNSTABLE};
+use rustc_session::lint::builtin::{
+    LEGACY_DERIVE_HELPERS, SOFT_UNSTABLE, UNKNOWN_DIAGNOSTIC_ATTRIBUTE,
+};
 use rustc_session::lint::builtin::{UNUSED_MACROS, UNUSED_MACRO_RULES};
 use rustc_session::lint::BuiltinLintDiagnostics;
 use rustc_session::parse::feature_err;
@@ -137,10 +139,11 @@ pub(crate) fn registered_tools(tcx: TyCtxt<'_>, (): ()) -> RegisteredTools {
             }
         }
     }
-    // We implicitly add `rustfmt` and `clippy` to known tools,
+    // We implicitly add `rustfmt`, `clippy`, `diagnostic` to known tools,
     // but it's not an error to register them explicitly.
     let predefined_tools = [sym::clippy, sym::rustfmt];
     registered_tools.extend(predefined_tools.iter().cloned().map(Ident::with_dummy_span));
+    registered_tools.insert(Ident::with_dummy_span(sym::diagnostic));
     registered_tools
 }
 
@@ -492,6 +495,27 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
             Err(Determinacy::Determined) => (self.dummy_ext(kind), Res::Err),
             Err(Determinacy::Undetermined) => return Err(Indeterminate),
         };
+
+        if kind == MacroKind::Attr
+            && !path.segments.is_empty()
+            && path.segments[0].ident.as_str() == "diagnostic"
+        {
+            if path.segments.len() != 2 {
+                self.tcx
+                    .sess
+                    .span_err(path.span, "Diagnostic attributes requires a path with 2 segments");
+                self.tcx
+                    .sess
+                    .span_err(path.span, "Diagnostic attributes requires a path with 2 segments");
+            } else {
+                self.tcx.sess.parse_sess.buffer_lint(
+                    UNKNOWN_DIAGNOSTIC_ATTRIBUTE,
+                    path.segments[1].span(),
+                    node_id,
+                    "Unknown diagnostic attribute",
+                );
+            }
+        }
 
         // Report errors for the resolved macro.
         for segment in &path.segments {

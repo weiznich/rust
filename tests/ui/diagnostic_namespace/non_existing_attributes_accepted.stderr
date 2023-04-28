@@ -1,0 +1,16 @@
+warning: Unknown diagnostic attribute
+  --> $DIR/non_existing_attributes_accepted.rs:2:15
+   |
+LL | #[diagnostic::non_existing_attribute]
+   |               ^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unknown_diagnostic_attribute)]` on by default
+
+warning: Unknown diagnostic attribute
+  --> $DIR/non_existing_attributes_accepted.rs:7:15
+   |
+LL | #[diagnostic::non_existing_attribute(with_option = "foo")]
+   |               ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: 2 warnings emitted
+

@@ -3398,6 +3398,7 @@ declare_lint_pass! {
         UNFULFILLED_LINT_EXPECTATIONS,
         UNINHABITED_STATIC,
         UNKNOWN_CRATE_TYPES,
+    UNKNOWN_DIAGNOSTIC_ATTRIBUTE,
         UNKNOWN_LINTS,
         UNREACHABLE_CODE,
         UNREACHABLE_PATTERNS,
@@ -4250,4 +4251,27 @@ declare_lint! {
     pub INVALID_MACRO_EXPORT_ARGUMENTS,
     Warn,
     "\"invalid_parameter\" isn't a valid argument for `#[macro_export]`",
+}
+
+declare_lint! {
+    /// The `unknown_diagnostic_attribute` lint detects unrecognized diagnostic attributes.
+    ///
+    /// ### Example
+    ///
+    /// ```rust
+    /// #[diagnostic::does_not_exist]
+    /// struct Foo;
+    /// ```
+    ///
+    /// {{produces}}
+    ///
+    /// ### Explanation
+    ///
+    /// It is usually a mistake to specify a diagnostic attribute that does not exist. Check
+    /// the spelling, and check the diagnostic attribute listing for the correct name. Also
+    /// consider if you are using an old version of the compiler, and the attribute
+    /// is only available in a newer version.
+    pub UNKNOWN_DIAGNOSTIC_ATTRIBUTE,
+    Warn,
+    "unrecognized diagnostic attribute"
 }
