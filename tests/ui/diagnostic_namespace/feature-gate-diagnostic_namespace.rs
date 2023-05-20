@@ -1,12 +1,11 @@
-#![feature(diagnostic_namespace)]
-// check-pass
+// check-fail
 #[diagnostic::non_existing_attribute]
-//~^WARN Unknown diagnostic attribute
+//~^ERROR use of undeclared crate or module `diagnostic
 pub trait Bar {
 }
 
 #[diagnostic::non_existing_attribute(with_option = "foo")]
-//~^WARN Unknown diagnostic attribute
+//~^ERROR use of undeclared crate or module `diagnostic
 struct Foo;
 
 fn main() {

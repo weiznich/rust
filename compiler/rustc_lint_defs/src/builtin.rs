@@ -4259,6 +4259,7 @@ declare_lint! {
     /// ### Example
     ///
     /// ```rust
+    /// #![feature(diagnostic_namespace)]
     /// #[diagnostic::does_not_exist]
     /// struct Foo;
     /// ```

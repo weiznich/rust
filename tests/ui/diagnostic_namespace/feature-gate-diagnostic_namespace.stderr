@@ -1,0 +1,15 @@
+error[E0433]: failed to resolve: use of undeclared crate or module `diagnostic`
+  --> $DIR/feature-gate-diagnostic_namespace.rs:7:3
+   |
+LL | #[diagnostic::non_existing_attribute(with_option = "foo")]
+   |   ^^^^^^^^^^ use of undeclared crate or module `diagnostic`
+
+error[E0433]: failed to resolve: use of undeclared crate or module `diagnostic`
+  --> $DIR/feature-gate-diagnostic_namespace.rs:2:3
+   |
+LL | #[diagnostic::non_existing_attribute]
+   |   ^^^^^^^^^^ use of undeclared crate or module `diagnostic`
+
+error: aborting due to 2 previous errors
+
+For more information about this error, try `rustc --explain E0433`.

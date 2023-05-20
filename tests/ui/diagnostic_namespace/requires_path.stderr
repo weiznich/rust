@@ -1,17 +1,17 @@
 error: Diagnostic attributes requires a path with 2 segments
-  --> $DIR/requires_path.rs:3:3
+  --> $DIR/requires_path.rs:4:3
    |
 LL | #[diagnostic]
    |   ^^^^^^^^^^
 
 error: Diagnostic attributes requires a path with 2 segments
-  --> $DIR/requires_path.rs:3:3
+  --> $DIR/requires_path.rs:4:3
    |
 LL | #[diagnostic]
    |   ^^^^^^^^^^
 
 error: cannot find attribute `diagnostic` in this scope
-  --> $DIR/requires_path.rs:3:3
+  --> $DIR/requires_path.rs:4:3
    |
 LL | #[diagnostic]
    |   ^^^^^^^^^^

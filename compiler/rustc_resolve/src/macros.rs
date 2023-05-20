@@ -143,7 +143,9 @@ pub(crate) fn registered_tools(tcx: TyCtxt<'_>, (): ()) -> RegisteredTools {
     // but it's not an error to register them explicitly.
     let predefined_tools = [sym::clippy, sym::rustfmt];
     registered_tools.extend(predefined_tools.iter().cloned().map(Ident::with_dummy_span));
-    registered_tools.insert(Ident::with_dummy_span(sym::diagnostic));
+    if tcx.features().diagnostic_namespace {
+        registered_tools.insert(Ident::with_dummy_span(sym::diagnostic));
+    }
     registered_tools
 }
 
@@ -496,7 +498,8 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
             Err(Determinacy::Undetermined) => return Err(Indeterminate),
         };
 
-        if kind == MacroKind::Attr
+        if self.tcx.features().diagnostic_namespace
+            && kind == MacroKind::Attr
             && !path.segments.is_empty()
             && path.segments[0].ident.as_str() == "diagnostic"
         {

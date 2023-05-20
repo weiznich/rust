@@ -1,3 +1,4 @@
+#![feature(diagnostic_namespace)]
 // check-fail
 
 #[diagnostic]
