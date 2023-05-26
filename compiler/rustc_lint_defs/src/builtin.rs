@@ -4254,7 +4254,7 @@ declare_lint! {
 }
 
 declare_lint! {
-    /// The `unknown_diagnostic_attribute` lint detects unrecognized diagnostic attributes.
+    /// The `unknown_diagnostic_attributes` lint detects unrecognized diagnostic attributes.
     ///
     /// ### Example
     ///
