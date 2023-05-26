@@ -22,7 +22,7 @@ use rustc_middle::middle::stability;
 use rustc_middle::ty::RegisteredTools;
 use rustc_middle::ty::TyCtxt;
 use rustc_session::lint::builtin::{
-    LEGACY_DERIVE_HELPERS, SOFT_UNSTABLE, UNKNOWN_DIAGNOSTIC_ATTRIBUTE,
+    LEGACY_DERIVE_HELPERS, SOFT_UNSTABLE, UNKNOWN_DIAGNOSTIC_ATTRIBUTES,
 };
 use rustc_session::lint::builtin::{UNUSED_MACROS, UNUSED_MACRO_RULES};
 use rustc_session::lint::BuiltinLintDiagnostics;
@@ -512,7 +512,7 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
                     .span_err(path.span, "Diagnostic attributes requires a path with 2 segments");
             } else {
                 self.tcx.sess.parse_sess.buffer_lint(
-                    UNKNOWN_DIAGNOSTIC_ATTRIBUTE,
+                    UNKNOWN_DIAGNOSTIC_ATTRIBUTES,
                     path.segments[1].span(),
                     node_id,
                     "Unknown diagnostic attribute",

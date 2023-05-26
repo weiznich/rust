@@ -3398,7 +3398,7 @@ declare_lint_pass! {
         UNFULFILLED_LINT_EXPECTATIONS,
         UNINHABITED_STATIC,
         UNKNOWN_CRATE_TYPES,
-    UNKNOWN_DIAGNOSTIC_ATTRIBUTE,
+        UNKNOWN_DIAGNOSTIC_ATTRIBUTES,
         UNKNOWN_LINTS,
         UNREACHABLE_CODE,
         UNREACHABLE_PATTERNS,
@@ -4272,7 +4272,7 @@ declare_lint! {
     /// the spelling, and check the diagnostic attribute listing for the correct name. Also
     /// consider if you are using an old version of the compiler, and the attribute
     /// is only available in a newer version.
-    pub UNKNOWN_DIAGNOSTIC_ATTRIBUTE,
+    pub UNKNOWN_DIAGNOSTIC_ATTRIBUTES,
     Warn,
     "unrecognized diagnostic attribute"
 }
