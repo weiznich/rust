@@ -130,7 +130,7 @@ enum Scope<'a> {
 #[derive(Clone, Copy)]
 enum ScopeSet<'a> {
     /// All scopes with the given namespace.
-    All(Namespace, /*is_import*/ bool),
+    All(Namespace),
     /// Crate root, then extern prelude (used for mixed 2015-2018 mode in macros).
     AbsolutePath(Namespace),
     /// All scopes with macro namespace and the given macro kind restriction.
@@ -1529,7 +1529,7 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
             }
         }
 
-        self.visit_scopes(ScopeSet::All(TypeNS, false), parent_scope, ctxt, |this, scope, _, _| {
+        self.visit_scopes(ScopeSet::All(TypeNS), parent_scope, ctxt, |this, scope, _, _| {
             match scope {
                 Scope::Module(module, _) => {
                     this.traits_in_module(module, assoc_item, &mut found_traits);

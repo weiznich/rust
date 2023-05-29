@@ -934,6 +934,9 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
                         if let Ok(initial_binding) = initial_binding {
                             let initial_res = initial_binding.res();
                             if res != initial_res && this.ambiguity_errors.is_empty() {
+                                // FIXME: This is actually a bug elsewhere, probably in glob
+                                // resolution, but we currently downgrade it to an error here
+                                // instead of fixing the root cause.
                                 this.ambiguity_errors.push(AmbiguityError {
                                     kind: AmbiguityKind::Import,
                                     ident,
@@ -1216,7 +1219,7 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
 
                 match this.early_resolve_ident_in_lexical_scope(
                     target,
-                    ScopeSet::All(ns, false),
+                    ScopeSet::All(ns),
                     &import.parent_scope,
                     None,
                     false,
