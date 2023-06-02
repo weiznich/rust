@@ -4276,3 +4276,27 @@ declare_lint! {
     Warn,
     "unrecognized diagnostic attribute"
 }
+
+declare_lint! {
+    /// The `unknown_diagnostic_attributes` lint detects unrecognized diagnostic attributes.
+    ///
+    /// ### Example
+    ///
+    /// ```rust
+    /// #![feature(diagnostic_namespace)]
+    /// #[diagnostic::does_not_exist]
+    /// struct Foo;
+    /// ```
+    ///
+    /// {{produces}}
+    ///
+    /// ### Explanation
+    ///
+    /// It is usually a mistake to specify a diagnostic attribute that does not exist. Check
+    /// the spelling, and check the diagnostic attribute listing for the correct name. Also
+    /// consider if you are using an old version of the compiler, and the attribute
+    /// is only available in a newer version.
+    pub MALFORMED_DIAGNOSTIC_ATTRIBUTES,
+    Warn,
+    "unrecognized diagnostic attribute options"
+}

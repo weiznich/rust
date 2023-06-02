@@ -99,6 +99,22 @@ impl Attribute {
         }
     }
 
+    pub fn is_path(&self, name: &[Symbol]) -> bool {
+        match &self.kind {
+            AttrKind::Normal(normal) => {
+                normal.item.path.segments.len() == name.len()
+                    && normal
+                        .item
+                        .path
+                        .segments
+                        .iter()
+                        .zip(name)
+                        .all(|(s, n)| s.ident == Ident::with_dummy_span(*n))
+            }
+            AttrKind::DocComment(..) => false,
+        }
+    }
+
     pub fn is_word(&self) -> bool {
         if let AttrKind::Normal(normal) = &self.kind {
             matches!(normal.item.args, AttrArgs::Empty)

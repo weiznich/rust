@@ -621,6 +621,7 @@ symbols! {
         destructuring_assignment,
         diagnostic,
         diagnostic_namespace,
+        diagnostic_on_unimplemented,
         direct,
         discriminant_kind,
         discriminant_type,

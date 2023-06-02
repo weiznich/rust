@@ -380,7 +380,8 @@ declare_features! (
     /// Allows having using `suggestion` in the `#[deprecated]` attribute.
     (active, deprecated_suggestion, "1.61.0", Some(94785), None),
     /// Allows using the `#[diagnostic]` attribute tool namespace
-    (active, diagnostic_namespace, "CURRENT_RUSTC_VERSION", Some(94785), None),
+    (active, diagnostic_namespace, "CURRENT_RUSTC_VERSION", Some(111996), None),
+    (active, diagnostic_on_unimplemented, "CURRENT_RUSTC_VERSION", Some(111996), None),
     /// Controls errors in trait implementations.
     (active, do_not_recommend, "1.67.0", Some(51992), None),
     /// Tells rustdoc to automatically generate `#[doc(cfg(...))]`.

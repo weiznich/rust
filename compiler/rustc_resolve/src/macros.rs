@@ -510,7 +510,9 @@ impl<'a, 'tcx> Resolver<'a, 'tcx> {
                 self.tcx
                     .sess
                     .span_err(path.span, "Diagnostic attributes requires a path with 2 segments");
-            } else {
+            } else if !(self.tcx.features().diagnostic_on_unimplemented
+                && path.segments[1].ident.as_str() == "on_unimplemented")
+            {
                 self.tcx.sess.parse_sess.buffer_lint(
                     UNKNOWN_DIAGNOSTIC_ATTRIBUTES,
                     path.segments[1].span(),
